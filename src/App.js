@@ -1,25 +1,34 @@
-import logo from './logo.svg';
+import React, {useEffect, useState} from 'react';
 import './App.css';
+import Form from './Form/Form';
+import CardContainer from './CardContainer/CardContainer';
 
-function App() {
+
+const App = () => {
+  const [ideas, setIdeas] = useState([])
+
+  const addIdea = (idea) => {
+    setIdeas([...ideas, idea])
+  }
+
+  const removeIdea = (id) => {
+    console.log('ideas', ideas)
+    console.log('id',id)
+    const filteredIdeas = ideas.filter((idea) => idea.id !== id)
+    console.log('filteredIdeas',filteredIdeas)
+    setIdeas(filteredIdeas)
+    console.log('ideas resaved', ideas)
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        Idea Box with Hooks
       </header>
+      <Form addIdea={addIdea} />
+      <CardContainer ideas={ideas} removeIdea={removeIdea} />
     </div>
-  );
+  )
 }
 
 export default App;
